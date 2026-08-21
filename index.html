@@ -29,11 +29,14 @@
 
   <div class="cow-bar" id="cow-bar">
     <div class="wrap cow-bar__inner">
-      <span class="cow-bar__label">Case of the Week</span>
-      <span class="cow-bar__body" id="cow-body"></span>
+      <div class="cow-bar__main">
+        <span class="cow-bar__label">Case of the Week</span>
+        <strong class="cow-bar__name" id="cow-name"></strong>
+        <span class="cow-bar__meta" id="cow-meta"></span>
+      </div>
       <div class="cow-bar__actions">
-        <a class="btn btn--open btn--sm" id="cow-open" href="#" target="_blank" rel="noopener">Open Case</a>
-        <button class="viewed-toggle viewed-toggle--sm" type="button" id="cow-fav">Mark as done</button>
+        <a class="btn btn--secondary btn--sm" id="cow-open" href="#" target="_blank" rel="noopener">Open Case</a>
+        <button class="viewed-toggle viewed-toggle--sm cow-bar__fav" type="button" id="cow-fav">Mark as done</button>
       </div>
     </div>
   </div>

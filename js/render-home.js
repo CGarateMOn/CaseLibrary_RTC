@@ -8,16 +8,15 @@ function initHomePage() {
 /* ---------- Case of the Week (top notification bar) ---------- */
 function renderCaseOfWeek() {
   const bar = document.getElementById("cow-bar");
-  const body = document.getElementById("cow-body");
+  const nameEl = document.getElementById("cow-name");
+  const metaEl = document.getElementById("cow-meta");
   const openLink = document.getElementById("cow-open");
   const toggle = document.getElementById("cow-fav");
-  if (!bar || !body) return;
+  if (!bar || !nameEl || !metaEl) return;
 
   getCaseOfWeek().then((item) => {
-    body.innerHTML = `
-      <strong class="cow-bar__name">${item.caseName}</strong>
-      <span class="cow-bar__meta">from ${item.casebookTitle} — Selected by ${item.selectedBy}</span>
-    `;
+    nameEl.textContent = item.caseName;
+    metaEl.textContent = `Selected by ${item.selectedBy}`;
     openLink.href = item.url;
     wireViewedToggle(bar, toggle, item.id);
   });

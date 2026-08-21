@@ -143,13 +143,6 @@ h4 { font-size: 1rem; }
   border-color: var(--line);
 }
 
-.btn--open {
-  /* Distinct green identity for the Case of the Week feature — see
-     .cow-bar in layout.css for why this section gets its own color. */
-  background: var(--open);
-  color: #fff;
-}
-
 .btn--sm {
   padding: calc(var(--space-unit) * 0.75) calc(var(--space-unit) * 1.5);
   font-size: 0.85rem;
