@@ -1,0 +1,186 @@
+/* Reset — same base reset as the RTC Ofertas page */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Spacing scale (layout decision, not a brand value — lives here rather than brand.css) */
+:root {
+  --space-unit: 8px;
+}
+
+/* Base */
+body {
+  font: 400 16px/1.45 var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  overflow-wrap: anywhere;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+h1, h2 {
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+h3, h4 {
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; }
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Utilities */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.eyebrow, .mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding-left: calc(16px + env(safe-area-inset-left));
+  padding-right: calc(16px + env(safe-area-inset-right));
+}
+
+.wrap--narrow {
+  max-width: 620px;
+}
+
+/* Todo lo de escritorio vive en @media (min-width:1024px), igual que en
+   RTC Ofertas: nunca se toca un valor base, así el móvil queda garantizado
+   intacto sin depender de acordarse de comprobarlo cada vez. */
+@media (min-width: 1024px) {
+  .wrap {
+    max-width: 1600px;
+    padding-left: calc(24px + env(safe-area-inset-left));
+    padding-right: calc(24px + env(safe-area-inset-right));
+  }
+
+  .wrap--narrow {
+    max-width: 760px;
+  }
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: calc(var(--space-unit) * 1.25) calc(var(--space-unit) * 2);
+  border-radius: var(--r);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--indigo);
+  color: var(--card);
+}
+
+.btn--secondary {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 0.7rem;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.badge--warn {
+  /* Hint-banner colors, hardcoded per brand guide (kept out of :root
+     since they're only reused here, matching sibling-page convention) */
+  background: #FDF3E2;
+  border: 1px solid #E9CE9A;
+  color: #6B4E17;
+}
+
+.viewed-toggle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--card);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+}
+
+.viewed-toggle.is-viewed {
+  background: var(--indigo);
+  color: var(--card);
+  border-color: var(--indigo);
+}
+
+.card.is-viewed {
+  opacity: 0.55;
+}

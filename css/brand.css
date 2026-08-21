@@ -1,0 +1,40 @@
+/* ============================================================
+   RTC BRAND
+   The single source of truth for brand-dependent values (color,
+   type, shape). No other CSS file should hardcode a brand color
+   or font — everything reads from these custom properties.
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --paper: #F3F9F9;   /* app background */
+  --card: #FFFFFF;    /* card / input / panel background */
+  --ink: #151A2B;     /* primary text */
+  --indigo: #004E54;  /* brand primary — headers, CTAs, active state */
+  --amber: #D8871B;   /* secondary accent — favorites, urgency, keyboard focus */
+  --muted: #6B7488;   /* secondary text / labels */
+  --line: #D7DDE9;    /* borders and separators */
+
+  /* Status colors — semantic, not decorative. Not used on this page
+     today (no progress-state concept here); kept for consistency
+     with sibling RTC properties that do track status. */
+  --open: #1F7A54;
+  --soon: #7A5AC4;
+  --shut: #8A94A8;
+
+  /* Typography */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter Tight", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Shape */
+  --r: 14px; /* standard radius: cards, panels, large buttons */
+
+  /* Shadows — always tinted from --ink, never pure black.
+     Values match RTC Ofertas exactly (.panel and .card:hover there). */
+  --shadow-panel: 0 10px 28px rgba(21, 26, 43, .16);  /* floating panels */
+  --shadow-card-hover: 0 6px 20px rgba(21, 26, 43, .08); /* card hover */
+
+  /* Logo */
+  --logo-url: url("../assets/logo-placeholder.svg");
+}

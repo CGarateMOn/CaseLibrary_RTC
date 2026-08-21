@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTC Case Library — Full Library</title>
+  <meta name="theme-color" content="#26346B">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/brand.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="library">
+  <header>
+    <div class="site-banner__inner wrap">
+      <a href="index.html" class="brand">
+        <b>Road to Consulting</b>
+        <span>Case Library</span>
+      </a>
+      <nav class="site-banner__nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="library.html" aria-current="page">Full Library</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <h1>Full Case Library</h1>
+        <p class="section__intro">
+          Raw folders maintained on OneDrive, organized by university. Less curated than the
+          homepage — start there if you're new; come here to browse everything.
+        </p>
+        <a class="btn btn--ghost" href="index.html">← Back to curated homepage</a>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <ul class="directory-list" id="university-directory"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">© Road To Consulting, a Talentum brand.<br>All rights reserved.<br>Madrid, Comunidad de Madrid. España</div>
+  </footer>
+
+  <script src="js/data/universities.js"></script>
+  <script src="js/render-library.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

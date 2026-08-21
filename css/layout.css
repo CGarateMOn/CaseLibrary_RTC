@@ -1,0 +1,342 @@
+/* ---------- header ---------- */
+header {
+  background: var(--indigo);
+  color: #fff;
+  padding: 18px 0 16px;
+}
+
+.site-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-unit);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.brand b {
+  white-space: nowrap;
+  font: 800 24px/1 var(--font-display);
+  letter-spacing: -.02em;
+}
+
+.brand span {
+  white-space: nowrap;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+
+.site-banner__nav {
+  display: flex;
+  gap: calc(var(--space-unit) * 2);
+}
+
+.site-banner__nav a {
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, .78);
+}
+
+.site-banner__nav a[aria-current="page"] {
+  color: #fff;
+}
+
+/* Sections */
+.section {
+  padding-block: calc(var(--space-unit) * 5);
+}
+
+.section--highlight {
+  background: var(--card);
+  border-block: 1px solid var(--line);
+}
+
+.section--muted {
+  /* Deliberately blends into the page background (--paper) rather than
+     getting its own panel — reinforces that this CTA is the least
+     prominent, easiest-to-skip section on the page. */
+  background: transparent;
+}
+
+.section__eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 0.8rem;
+  color: var(--indigo);
+  margin-bottom: var(--space-unit);
+}
+
+.section__intro {
+  color: var(--muted);
+  margin-top: calc(var(--space-unit) * 0.5);
+  margin-bottom: calc(var(--space-unit) * 2);
+}
+
+.section h1,
+.section h2 {
+  color: var(--indigo);
+  margin-bottom: calc(var(--space-unit) * 2);
+}
+
+.section h2.visually-subtle-heading {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Case of the week card */
+.cow-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-panel);
+  padding: calc(var(--space-unit) * 3);
+  max-width: 640px;
+}
+
+.cow-card__meta {
+  color: var(--muted);
+  margin-top: calc(var(--space-unit) * 0.5);
+}
+
+.cow-card__blurb {
+  color: #39415A;
+  margin-top: var(--space-unit);
+}
+
+.cow-card__actions {
+  margin-top: calc(var(--space-unit) * 2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-unit);
+  flex-wrap: wrap;
+}
+
+/* Tier groups */
+.tier-group {
+  margin-bottom: calc(var(--space-unit) * 4);
+}
+
+.tier-group__title {
+  margin-bottom: calc(var(--space-unit) * 1.5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-unit);
+}
+
+/* Card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: calc(var(--space-unit) * 3);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: calc(var(--space-unit) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1);
+}
+
+.card:focus-within {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+}
+
+.tier-group--advanced .card {
+  border-left: 4px solid var(--muted);
+}
+
+.card__title {
+  font-size: 1rem;
+}
+
+.card__title a {
+  text-decoration: none;
+}
+
+.card__meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.card__meta dl,
+dl.card__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2em 0.6em;
+}
+
+.card__meta dt {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.card__meta dd {
+  color: var(--ink);
+}
+
+.card__desc {
+  font-size: 0.9rem;
+  color: #39415A;
+}
+
+.card__recommender {
+  font-size: 0.9rem;
+}
+
+/* MBB link list */
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1.5);
+}
+
+.link-list__item {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: calc(var(--space-unit) * 1.5);
+}
+
+.link-list__item:last-child {
+  border-bottom: none;
+}
+
+.firm-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 0.75rem;
+  color: var(--indigo);
+  margin-bottom: 0.2em;
+}
+
+.link-list__item a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-list__item p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.2em;
+}
+
+/* Scroller (Favorite Individual Cases) */
+.scroller {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--space-unit);
+}
+
+.scroller__track {
+  display: flex;
+  gap: calc(var(--space-unit) * 2);
+}
+
+.scroller__track > li {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+}
+
+.indiv-case-card {
+  height: 100%;
+}
+
+/* Directory list (library.html) */
+.directory-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1.5);
+}
+
+.directory-list__item {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: calc(var(--space-unit) * 1.5);
+}
+
+.directory-list__item a {
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.directory-list__note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.2em;
+}
+
+/* ---------- footer ---------- */
+.site-foot {
+  margin-top: 8px;
+  background: var(--indigo);
+}
+
+.site-foot .wrap {
+  padding-top: 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  font: 500 10px var(--font-mono);
+  color: #fff;
+  opacity: .8;
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* Single responsive breakpoint for the whole site, mobile-first */
+@media (min-width: 1024px) {
+  .site-banner__inner {
+    flex-wrap: nowrap;
+  }
+
+  .scroller__track > li {
+    flex: 0 0 260px;
+  }
+}
+
+/* Hover states, guarded to real pointer+hover devices at desktop width so
+   touch taps never get stuck in a hover state — same pattern as Ofertas. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .card {
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+
+  .card:hover {
+    border-color: var(--indigo);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .site-banner__nav a:hover {
+    color: #fff;
+  }
+
+  .card__title a:hover {
+    color: var(--indigo);
+  }
+
+  .link-list__item a:hover {
+    color: var(--indigo);
+  }
+
+  .directory-list__item a:hover {
+    color: var(--indigo);
+  }
+}

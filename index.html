@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTC Case Library</title>
+  <meta name="theme-color" content="#26346B">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/brand.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="home">
+  <header>
+    <div class="site-banner__inner wrap">
+      <a href="index.html" class="brand">
+        <b>Road to Consulting</b>
+        <span>Case Library</span>
+      </a>
+      <nav class="site-banner__nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="library.html">Full Library</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="case-of-week" class="section section--highlight" aria-labelledby="case-of-week-heading">
+      <div class="wrap">
+        <h2 id="case-of-week-heading" class="section__eyebrow">Case of the Week</h2>
+        <article class="cow-card" id="cow-card"></article>
+      </div>
+    </section>
+
+    <section id="casebooks" class="section" aria-labelledby="casebooks-heading">
+      <div class="wrap">
+        <h2 id="casebooks-heading">Favorite Casebooks</h2>
+
+        <div class="tier-group" data-tier="1">
+          <h3 class="tier-group__title">Tier 1 — Best for Getting Started</h3>
+          <ol class="card-grid card-grid--ranked" id="casebooks-tier1"></ol>
+        </div>
+
+        <div class="tier-group tier-group--advanced" data-tier="2">
+          <h3 class="tier-group__title">
+            Tier 2 — Advanced
+            <span class="badge badge--warn">Not for beginners</span>
+          </h3>
+          <ul class="card-grid" id="casebooks-tier2"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="mbb-cases" class="section" aria-labelledby="mbb-heading">
+      <div class="wrap">
+        <h2 id="mbb-heading">MBB Cases</h2>
+        <p class="section__intro">Official case materials published directly by the firms.</p>
+        <ul class="link-list" id="mbb-list"></ul>
+      </div>
+    </section>
+
+    <section id="individual-cases" class="section" aria-labelledby="indiv-heading">
+      <div class="wrap">
+        <h2 id="indiv-heading">Favorite Individual Cases</h2>
+        <div class="scroller" tabindex="0" aria-label="Scrollable list of favorite individual cases">
+          <ul class="scroller__track" id="individual-cases-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="full-library-cta" class="section section--muted" aria-labelledby="full-library-heading">
+      <div class="wrap wrap--narrow">
+        <h2 id="full-library-heading" class="visually-subtle-heading">Want to go deeper?</h2>
+        <p class="section__intro">Browse the complete raw case library, organized by university.</p>
+        <a class="btn btn--ghost" href="library.html">Browse Full Library →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">© Road To Consulting, a Talentum brand.<br>All rights reserved.<br>Madrid, Comunidad de Madrid. España</div>
+  </footer>
+
+  <script src="js/data/case-of-week.js"></script>
+  <script src="js/data/casebooks.js"></script>
+  <script src="js/data/mbb-links.js"></script>
+  <script src="js/data/individual-cases.js"></script>
+  <script src="js/viewed-tracker.js"></script>
+  <script src="js/render-home.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
