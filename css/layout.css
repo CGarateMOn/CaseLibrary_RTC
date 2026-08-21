@@ -53,12 +53,74 @@ header {
   color: #fff;
 }
 
+/* ---------- Case of the Week — top notification bar ----------
+   Deliberately given its own green identity (the --open token, otherwise
+   reserved for status tracking) so it reads as clearly distinct from both
+   the indigo header above and the white Favorite Casebooks panel below. */
+.cow-bar {
+  background: #EAF6EF;
+  border-bottom: 1px solid rgba(31, 122, 84, .25);
+}
+
+.cow-bar__inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: calc(var(--space-unit) * 1.5);
+  padding-block: calc(var(--space-unit) * 1.25);
+}
+
+.cow-bar__label {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 0.7rem;
+  color: #fff;
+  background: var(--open);
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.cow-bar__body {
+  flex: 1 1 240px;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  font-size: 0.9rem;
+}
+
+.cow-bar__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.cow-bar__meta {
+  color: var(--muted);
+}
+
+.cow-bar__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-unit) * 1.25);
+  margin-left: auto;
+}
+
 /* Sections */
 .section {
   padding-block: calc(var(--space-unit) * 5);
 }
 
-.section--highlight {
+.section--panel {
+  /* Wraps a whole category (both casebook tiers) in one visually cohesive
+     panel, distinct from the plain-paper sections around it. */
   background: var(--card);
   border-block: 1px solid var(--line);
 }
@@ -70,14 +132,61 @@ header {
   background: transparent;
 }
 
-.section__eyebrow {
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-unit);
+  margin-bottom: calc(var(--space-unit) * 2);
+}
+
+.section__head h2,
+.section__head h3 {
+  margin-bottom: 0;
+}
+
+.section__head--sub {
+  margin-bottom: calc(var(--space-unit) * 1.5);
+}
+
+/* Progress badge — deliberately loud (sky-blue pill + fill bar), since
+   tracking progress is a headline feature, not a footnote. Sky blue picked
+   over the earlier amber/mustard chip precisely so it doesn't blend in
+   with the amber/green/indigo already used elsewhere on the page — colors
+   hardcoded here (not in brand.css) since they're a one-off UI accent, not
+   part of the core palette. */
+.progress {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #C3E4FA;
+  color: #0B4F82;
   font-family: var(--font-mono);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .12em;
   font-size: 0.8rem;
-  color: var(--indigo);
-  margin-bottom: var(--space-unit);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.progress__bar {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(11, 79, 130, .18);
+  overflow: hidden;
+}
+
+.progress__bar-fill {
+  display: block;
+  height: 100%;
+  background: #0B4F82;
+  border-radius: 999px;
+  transition: width .25s ease;
 }
 
 .section__intro {
@@ -98,37 +207,13 @@ header {
   color: var(--muted);
 }
 
-/* Case of the week card */
-.cow-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  box-shadow: var(--shadow-panel);
-  padding: calc(var(--space-unit) * 3);
-  max-width: 640px;
-}
-
-.cow-card__meta {
-  color: var(--muted);
-  margin-top: calc(var(--space-unit) * 0.5);
-}
-
-.cow-card__blurb {
-  color: #39415A;
-  margin-top: var(--space-unit);
-}
-
-.cow-card__actions {
-  margin-top: calc(var(--space-unit) * 2);
-  display: flex;
-  align-items: center;
-  gap: var(--space-unit);
-  flex-wrap: wrap;
-}
-
 /* Tier groups */
 .tier-group {
   margin-bottom: calc(var(--space-unit) * 4);
+}
+
+.tier-group:last-child {
+  margin-bottom: 0;
 }
 
 .tier-group__title {
@@ -136,7 +221,24 @@ header {
   display: flex;
   align-items: center;
   gap: var(--space-unit);
+  color: var(--ink);
 }
+
+.mbb-firm-group {
+  margin-bottom: calc(var(--space-unit) * 4);
+}
+
+.mbb-firm-group:last-child {
+  margin-bottom: 0;
+}
+
+.mbb-firm-group__title {
+  color: var(--firm-color, var(--ink));
+}
+
+.mbb-firm-group[data-firm="mckinsey"] { --firm-color: #0057B8; }
+.mbb-firm-group[data-firm="bcg"] { --firm-color: #1C6B3E; }
+.mbb-firm-group[data-firm="bain"] { --firm-color: #A6192E; }
 
 /* Card grid */
 .card-grid {
@@ -160,8 +262,98 @@ header {
   outline-offset: 2px;
 }
 
-.tier-group--advanced .card {
-  border-left: 4px solid var(--muted);
+/* Casebook cards (both tiers) share the same left-border language: the
+   originating university's color, so tier 1 and tier 2 read as one
+   consistent card family — tier 1's only extra is the rank medal. */
+.casebook-card,
+.stair-card {
+  border-left: 4px solid var(--university-color, var(--line));
+}
+
+.mbb-firm-group .card {
+  border-left: 4px solid var(--firm-color, var(--line));
+}
+
+/* MBB cards are reference links, not full write-ups — keep them lighter
+   and more compact than casebook/individual-case cards. */
+.mbb-card {
+  padding: calc(var(--space-unit) * 1.5);
+  gap: calc(var(--space-unit) * 0.75);
+}
+
+.mbb-card .card__title {
+  font-size: 0.95rem;
+}
+
+.mbb-card .card__desc {
+  font-size: 0.85rem;
+}
+
+.mbb-card__actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-unit) * 1.25);
+  flex-wrap: wrap;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--space-unit) * 1.25);
+}
+
+.card-top .card__title {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tier-1 "staircase" cards — all three the same size (matching the
+   narrowest, 3rd-place card); the staircase comes from alignment shifting
+   left → center → right, so the empty space top-right (1st card) mirrors
+   the empty space bottom-left (3rd card) exactly, for symmetry. */
+.rank-stack {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 2);
+}
+
+.rank-stack > li {
+  width: 88%;
+}
+
+.rank-stack > li[data-rank="2"] {
+  margin-inline: auto;
+}
+
+.rank-stack > li[data-rank="3"] {
+  margin-left: auto;
+}
+
+.stair-card {
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: calc(var(--space-unit) * 2);
+}
+
+.stair-card__body {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 0.75);
+}
+
+.stair-card__head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: calc(var(--space-unit) * 1.25);
+}
+
+.stair-card > .viewed-toggle {
+  align-self: center;
+  flex: 0 0 auto;
 }
 
 .card__title {
@@ -202,22 +394,6 @@ dl.card__meta {
   font-size: 0.9rem;
 }
 
-/* MBB link list */
-.link-list {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--space-unit) * 1.5);
-}
-
-.link-list__item {
-  border-bottom: 1px solid var(--line);
-  padding-bottom: calc(var(--space-unit) * 1.5);
-}
-
-.link-list__item:last-child {
-  border-bottom: none;
-}
-
 .firm-badge {
   display: inline-block;
   font-family: var(--font-mono);
@@ -225,41 +401,48 @@ dl.card__meta {
   text-transform: uppercase;
   letter-spacing: .1em;
   font-size: 0.75rem;
-  color: var(--indigo);
-  margin-bottom: 0.2em;
+  color: var(--firm-color, var(--indigo));
 }
 
-.link-list__item a {
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.link-list__item p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-top: 0.2em;
-}
-
-/* Scroller (Favorite Individual Cases) */
-.scroller {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: var(--space-unit);
-}
-
-.scroller__track {
+/* Rank badges — universal medal colors so hierarchy reads at a glance */
+.rank-badge {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   display: flex;
-  gap: calc(var(--space-unit) * 2);
+  align-items: center;
+  justify-content: center;
+  font: 700 14px var(--font-mono);
 }
 
-.scroller__track > li {
-  flex: 0 0 220px;
-  scroll-snap-align: start;
+.rank-badge--1 {
+  background: #D4AF37; /* gold */
+  color: #fff;
 }
 
-.indiv-case-card {
-  height: 100%;
+.rank-badge--2 {
+  background: #B7C0CC; /* silver */
+  color: var(--ink);
 }
+
+.rank-badge--3 {
+  background: #C97B3D; /* bronze */
+  color: #fff;
+}
+
+.rank-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 0.7rem;
+}
+
+.rank-label--1 { color: #A6862A; }
+.rank-label--2 { color: #7C8595; }
+.rank-label--3 { color: #A85B26; }
 
 /* Directory list (library.html) */
 .directory-list {
@@ -306,10 +489,6 @@ dl.card__meta {
   .site-banner__inner {
     flex-wrap: nowrap;
   }
-
-  .scroller__track > li {
-    flex: 0 0 260px;
-  }
 }
 
 /* Hover states, guarded to real pointer+hover devices at desktop width so
@@ -329,10 +508,6 @@ dl.card__meta {
   }
 
   .card__title a:hover {
-    color: var(--indigo);
-  }
-
-  .link-list__item a:hover {
     color: var(--indigo);
   }
 

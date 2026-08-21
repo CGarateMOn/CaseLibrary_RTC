@@ -143,24 +143,16 @@ h4 { font-size: 1rem; }
   border-color: var(--line);
 }
 
-.badge {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: 0.7rem;
-  padding: 0.3em 0.8em;
-  border-radius: 999px;
-  vertical-align: middle;
+.btn--open {
+  /* Distinct green identity for the Case of the Week feature — see
+     .cow-bar in layout.css for why this section gets its own color. */
+  background: var(--open);
+  color: #fff;
 }
 
-.badge--warn {
-  /* Hint-banner colors, hardcoded per brand guide (kept out of :root
-     since they're only reused here, matching sibling-page convention) */
-  background: #FDF3E2;
-  border: 1px solid #E9CE9A;
-  color: #6B4E17;
+.btn--sm {
+  padding: calc(var(--space-unit) * 0.75) calc(var(--space-unit) * 1.5);
+  font-size: 0.85rem;
 }
 
 .viewed-toggle {
@@ -181,6 +173,49 @@ h4 { font-size: 1rem; }
   border-color: var(--indigo);
 }
 
-.card.is-viewed {
-  opacity: 0.55;
+.viewed-toggle--sm {
+  font-size: 0.75rem;
+  padding: 0.3em 0.75em;
 }
+
+/* Small "satisfaction" pulse when a card is marked done */
+.viewed-toggle.pulse {
+  animation: mark-pulse .35s ease;
+}
+
+@keyframes mark-pulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewed-toggle.pulse {
+    animation: none;
+  }
+}
+
+.card.is-viewed {
+  opacity: .6;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 0.7rem;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.badge--warn {
+  /* Hint-banner colors, hardcoded per brand guide (kept out of :root
+     since they're only reused here, matching sibling-page convention) */
+  background: #FDF3E2;
+  border: 1px solid #E9CE9A;
+  color: #6B4E17;
+}
+

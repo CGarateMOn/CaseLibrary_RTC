@@ -27,47 +27,52 @@
     </div>
   </header>
 
-  <main>
-    <section id="case-of-week" class="section section--highlight" aria-labelledby="case-of-week-heading">
-      <div class="wrap">
-        <h2 id="case-of-week-heading" class="section__eyebrow">Case of the Week</h2>
-        <article class="cow-card" id="cow-card"></article>
+  <div class="cow-bar" id="cow-bar">
+    <div class="wrap cow-bar__inner">
+      <span class="cow-bar__label">Case of the Week</span>
+      <span class="cow-bar__body" id="cow-body"></span>
+      <div class="cow-bar__actions">
+        <a class="btn btn--open btn--sm" id="cow-open" href="#" target="_blank" rel="noopener">Open Case</a>
+        <button class="viewed-toggle viewed-toggle--sm" type="button" id="cow-fav">Mark as done</button>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section id="casebooks" class="section" aria-labelledby="casebooks-heading">
+  <main>
+    <section id="casebooks" class="section section--panel" aria-labelledby="casebooks-heading">
       <div class="wrap">
-        <h2 id="casebooks-heading">Favorite Casebooks</h2>
-
-        <div class="tier-group" data-tier="1">
-          <h3 class="tier-group__title">Tier 1 — Best for Getting Started</h3>
-          <ol class="card-grid card-grid--ranked" id="casebooks-tier1"></ol>
+        <div class="section__head">
+          <h2 id="casebooks-heading">Favorite Casebooks</h2>
+          <span class="progress" id="casebooks-progress"></span>
         </div>
 
-        <div class="tier-group tier-group--advanced" data-tier="2">
-          <h3 class="tier-group__title">
-            Tier 2 — Advanced
-            <span class="badge badge--warn">Not for beginners</span>
-          </h3>
+        <div class="tier-group" data-tier="1">
+          <h3 class="tier-group__title">Tier 1 — Our Favorites for Everyone</h3>
+          <ol class="rank-stack" id="casebooks-tier1"></ol>
+        </div>
+
+        <div class="tier-group tier-group--other" data-tier="2">
+          <h3 class="tier-group__title">Tier 2 — Other Titles We Like</h3>
           <ul class="card-grid" id="casebooks-tier2"></ul>
         </div>
       </div>
     </section>
 
-    <section id="mbb-cases" class="section" aria-labelledby="mbb-heading">
+    <section id="individual-cases" class="section" aria-labelledby="indiv-heading">
       <div class="wrap">
-        <h2 id="mbb-heading">MBB Cases</h2>
-        <p class="section__intro">Official case materials published directly by the firms.</p>
-        <ul class="link-list" id="mbb-list"></ul>
+        <div class="section__head">
+          <h2 id="indiv-heading">Favorite Individual Cases</h2>
+          <span class="progress" id="individual-cases-progress"></span>
+        </div>
+        <ul class="card-grid" id="individual-cases-list"></ul>
       </div>
     </section>
 
-    <section id="individual-cases" class="section" aria-labelledby="indiv-heading">
+    <section id="mbb-cases" class="section section--panel" aria-labelledby="mbb-heading">
       <div class="wrap">
-        <h2 id="indiv-heading">Favorite Individual Cases</h2>
-        <div class="scroller" tabindex="0" aria-label="Scrollable list of favorite individual cases">
-          <ul class="scroller__track" id="individual-cases-list"></ul>
-        </div>
+        <h2 id="mbb-heading">MBB Cases</h2>
+        <p class="section__intro">Official case materials published directly by the firms.</p>
+        <div id="mbb-groups"></div>
       </div>
     </section>
 

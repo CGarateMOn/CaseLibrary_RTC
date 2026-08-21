@@ -3,11 +3,9 @@ const CASE_OF_WEEK_STATIC = {
   id: "cow-2026-08-18",
   caseName: "PharmaCo Pricing Strategy",
   casebookTitle: "Wharton Case Book 2024",
-  authors: ["Wharton Consulting Club"],
-  recommendedBy: "RTC Team",
+  selectedBy: "Priya Nair",
   url: "https://onedrive.live.com/PLACEHOLDER/pharmaco-pricing",
-  weekOf: "2026-08-18",
-  blurb: "A great mid-difficulty pricing case that tests structured math and creative segmentation."
+  weekOf: "2026-08-18"
 };
 
 // Isolated data-source function. Today it resolves a static object; later,
