@@ -165,6 +165,11 @@ h4 { font-size: 1rem; }
   border-radius: var(--r);
   padding: 0.4em 0.9em;
   cursor: pointer;
+  /* Fixed width (sized for the longer "Mark as done" label) so the text
+     swap to "Done ✓" never reflows a neighboring button — e.g. Open Case
+     in the Case of the Week bar staying put when this is clicked. */
+  min-width: 112px;
+  text-align: center;
 }
 
 .viewed-toggle.is-viewed {
@@ -176,6 +181,7 @@ h4 { font-size: 1rem; }
 .viewed-toggle--sm {
   font-size: 0.75rem;
   padding: 0.3em 0.75em;
+  min-width: 96px;
 }
 
 /* Small "satisfaction" pulse when a card is marked done */

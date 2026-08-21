@@ -132,10 +132,37 @@ function buildIndividualCard(item, onToggle) {
   return li;
 }
 
+// Measures the actual rendered row positions (column count varies with
+// viewport width, so row height can't be a fixed CSS value) and caps the
+// scroll container's height to the bottom of the 3rd row. Fewer than 3
+// rows of content: no cap, nothing to scroll.
+function capToRows(scrollEl, listEl, maxRows) {
+  const items = Array.from(listEl.children);
+  if (!items.length) {
+    scrollEl.style.maxHeight = "";
+    return;
+  }
+  const listTop = listEl.getBoundingClientRect().top;
+  const relTops = items.map((el) => Math.round(el.getBoundingClientRect().top - listTop));
+  const rowTops = [...new Set(relTops)].sort((a, b) => a - b);
+  if (rowTops.length <= maxRows) {
+    scrollEl.style.maxHeight = "";
+    return;
+  }
+  const cutoffTop = rowTops[maxRows - 1];
+  const rowItems = items.filter((el, i) => relTops[i] === cutoffTop);
+  const cutoffBottom = Math.max(...rowItems.map((el) => {
+    const r = el.getBoundingClientRect();
+    return Math.round(r.top - listTop + r.height);
+  }));
+  scrollEl.style.maxHeight = `${cutoffBottom}px`;
+}
+
 function renderIndividualCases() {
+  const scrollEl = document.getElementById("individual-cases-scroll");
   const list = document.getElementById("individual-cases-list");
   const progressEl = document.getElementById("individual-cases-progress");
-  if (!list) return;
+  if (!list || !scrollEl) return;
 
   getIndividualCases().then((cases) => {
     function draw() {
@@ -151,10 +178,17 @@ function renderIndividualCases() {
           draw();
         }));
       });
+      capToRows(scrollEl, list, 3);
     }
 
     renderProgress(progressEl, cases);
     draw();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => capToRows(scrollEl, list, 3), 150);
+    });
   });
 }
 

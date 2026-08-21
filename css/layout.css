@@ -247,6 +247,15 @@ header {
   gap: calc(var(--space-unit) * 3);
 }
 
+/* Favorite Individual Cases: capped to ~3 visible rows (height computed in
+   JS, since column count — and so row height — changes with viewport
+   width), then scrolls internally instead of growing the page. */
+.indiv-cases-scroll {
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-right: -6px;
+}
+
 .card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -255,11 +264,6 @@ header {
   display: flex;
   flex-direction: column;
   gap: calc(var(--space-unit) * 1);
-}
-
-.card:focus-within {
-  outline: 2px solid var(--indigo);
-  outline-offset: 2px;
 }
 
 /* Casebook cards (both tiers) share the same left-border language: the

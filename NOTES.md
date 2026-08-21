@@ -16,6 +16,10 @@ En escritorio, la sección usa una matriz (grid responsive con tantas columnas c
 
 Los colores usados hoy para diferenciar cada firma en `MBB Cases` (`--firm-color` en `css/layout.css`, dentro de `.mbb-firm-group[data-firm="..."]`) son una aproximación razonable (azul marino, verde, rojo) basada en la percepción pública de cada marca — no son los valores de marca oficiales de McKinsey/BCG/Bain. Si en algún momento tenemos acceso a sus guías de marca reales, actualizar esos tres valores.
 
+## McKinsey Solve
+
+`MBB Cases` tiene hoy una única tarjeta por firma (McKinsey, BCG, Bain), todas centradas en preparación de la entrevista de casos. "McKinsey Solve" (su herramienta de evaluación, distinta del caso de entrevista clásico) queda fuera a propósito: hoy no tenemos ningún caso de Solve, y cuando lo tengamos irá como su propia tarjeta separada, no mezclado con la de "Case Interview Prep".
+
 ## Colores de universidad en los casebooks
 
 El borde izquierdo de cada tarjeta de `Favorite Casebooks` (tier 1 y tier 2) usa el campo `universityColor` en `js/data/casebooks.js` — igual que con MBB, son aproximaciones basadas en la percepción pública de cada universidad (Harvard granate, Stanford cardinal, Columbia azul claro, Wharton/Penn azul marino, LSE morado), no valores de marca oficiales verificados. Actualizar si conseguimos las guías de marca reales.

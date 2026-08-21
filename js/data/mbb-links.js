@@ -5,20 +5,12 @@
 // firm's accent color in css/layout.css.
 const MBB_LINKS = [
   {
-    id: "mbb-mckinsey-practice-cases",
+    id: "mbb-mckinsey-case-prep",
     firm: "McKinsey & Company",
     firmSlug: "mckinsey",
-    title: "McKinsey Solve & Practice Cases",
-    url: "https://www.mckinsey.com/PLACEHOLDER/practice-cases",
-    description: "Official practice cases and interactive case interview tool."
-  },
-  {
-    id: "mbb-mckinsey-prep-guide",
-    firm: "McKinsey & Company",
-    firmSlug: "mckinsey",
-    title: "Case Interview Prep Guide (PDF)",
-    url: "https://www.mckinsey.com/PLACEHOLDER/prep-guide",
-    description: "Official written guide covering McKinsey's interview format."
+    title: "Case Interview Prep",
+    url: "https://www.mckinsey.com/PLACEHOLDER/case-interview-prep",
+    description: "Official written guide and sample cases covering McKinsey's interview format."
   },
   {
     id: "mbb-bcg-online-prep",
