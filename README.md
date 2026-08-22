@@ -1,6 +1,6 @@
 # RTC Case Library
 
-Portal estático (sin build ni framework) que organiza y presenta el material de casos de consultoría del equipo de RTC (Road to Consulting), cuyos archivos reales viven en una carpeta de OneDrive. Este sitio no aloja casos: solo enlaza y prioriza lo que ya existe.
+Portal estático (sin build ni framework) que organiza y presenta el material de casos de consultoría del equipo de RTC (Road to Consulting), cuyos archivos reales viven en una carpeta de Google Drive. Este sitio no aloja casos: solo enlaza y prioriza lo que ya existe.
 
 ## Cómo previsualizar
 
@@ -97,7 +97,7 @@ const UNIVERSITY_COLORS = {
 
 Para añadir una universidad nueva: una línea en esta matriz (con su commit) + usar ese mismo nombre exacto en la columna `University` de la pestaña Casebooks. Si el nombre no coincide con ninguna clave (o es `null`), la tarjeta cae a un borde neutro — no rompe nada. Los colores de McKinsey/BCG/Bain siguen igual, fijos en `css/layout.css` (son solo 3, a diferencia de las universidades, que el equipo sigue ampliando).
 
-`js/data/universities.js` (el directorio de `library.html`, con las carpetas de OneDrive por universidad) es un dato distinto de esta matriz de colores — sigue estático, no forma parte de este sync.
+`js/data/universities.js` (el directorio de `library.html`, con las carpetas de Google Drive por universidad) es un dato distinto de esta matriz de colores — sigue estático, no forma parte de este sync.
 
 ## Estructura de la home
 
@@ -124,5 +124,5 @@ Los `<script>` se cargan como scripts clásicos (sin `type="module"`, sin `impor
 ## Pendiente (fuera de alcance de este build)
 
 - Activar la sincronización: añadir el secreto `RTC_SHEET_ENDPOINT` en Settings → Secrets and variables → Actions del repo, con la URL del Apps Script (ver "Integración de datos" arriba). El workflow y el script ya están listos, `.github/workflows/sync-data.yml` solo necesita ese secreto para empezar a correr de verdad.
-- Fetch en vivo del contenido de OneDrive vía Microsoft Graph API.
+- Fetch en vivo del contenido de Google Drive vía Google Drive API.
 - Logo real de RTC (hoy sigue siendo un placeholder de forma, ya con los colores de marca).
