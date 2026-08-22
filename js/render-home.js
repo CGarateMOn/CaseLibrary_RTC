@@ -43,6 +43,14 @@ function universityMetaRow(item) {
     : "";
 }
 
+// `description` can be null/empty (e.g. MBB rows with no write-up yet) —
+// omit the paragraph entirely instead of rendering the literal text "null".
+function descriptionHtml(item) {
+  return item.description
+    ? `<p class="card__desc">${item.description}</p>`
+    : "";
+}
+
 function buildStairCard(item, onToggle) {
   const article = document.createElement("article");
   article.className = "card stair-card";
@@ -56,7 +64,7 @@ function buildStairCard(item, onToggle) {
     <span class="rank-badge rank-badge--${item.rank}">${item.rank}</span>
     <div class="stair-card__body">
       <div class="stair-card__head">
-        <h4 class="card__title"><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h4>
+        <h4 class="card__title">${item.title}</h4>
         <span class="rank-label rank-label--${item.rank}">${RANK_LABELS[item.rank]}</span>
         ${warnBadge}
       </div>
@@ -65,9 +73,12 @@ function buildStairCard(item, onToggle) {
         <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
         <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
       </dl>
-      <p class="card__desc">${item.description}</p>
+      ${descriptionHtml(item)}
     </div>
-    <button class="viewed-toggle" type="button">Mark as done</button>
+    <div class="card__actions">
+      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
+      <button class="viewed-toggle" type="button">Mark as done</button>
+    </div>
   `;
   const toggle = article.querySelector(".viewed-toggle");
   wireViewedToggle(article, toggle, item.id, onToggle);
@@ -85,7 +96,7 @@ function buildCasebookCard(item, onToggle) {
 
   article.innerHTML = `
     <div class="card-top">
-      <h4 class="card__title"><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h4>
+      <h4 class="card__title">${item.title}</h4>
     </div>
     ${warnBadge}
     <dl class="card__meta">
@@ -93,8 +104,11 @@ function buildCasebookCard(item, onToggle) {
       <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
       <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
     </dl>
-    <p class="card__desc">${item.description}</p>
-    <button class="viewed-toggle" type="button">Mark as done</button>
+    ${descriptionHtml(item)}
+    <div class="card__actions">
+      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
+      <button class="viewed-toggle" type="button">Mark as done</button>
+    </div>
   `;
   const toggle = article.querySelector(".viewed-toggle");
   wireViewedToggle(article, toggle, item.id, onToggle);
@@ -129,7 +143,27 @@ function renderCasebooks() {
     });
 
     updateProgress();
+    equalizeHeights(tier1List.querySelectorAll(".stair-card"));
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => equalizeHeights(tier1List.querySelectorAll(".stair-card")), 150);
+    });
   });
+}
+
+// Tier-1 cards stack vertically (not a grid row), so there's no automatic
+// "stretch to the tallest sibling" the way grid rows get for free — measure
+// and force it explicitly. Resets to auto first so a shrinking card (e.g.
+// after a viewport resize widens the text) can measure its true height,
+// not the previous forced one.
+function equalizeHeights(elements) {
+  const items = Array.from(elements);
+  if (items.length < 2) return;
+  items.forEach((el) => { el.style.height = "auto"; });
+  const tallest = Math.max(...items.map((el) => el.getBoundingClientRect().height));
+  items.forEach((el) => { el.style.height = `${tallest}px`; });
 }
 
 /* ---------- Favorite Individual Cases ---------- */
@@ -221,8 +255,8 @@ function buildMbbCard(item, onToggle) {
     <div class="card-top">
       <h4 class="card__title">${item.title}</h4>
     </div>
-    <p class="card__desc">${item.description}</p>
-    <div class="mbb-card__actions">
+    ${descriptionHtml(item)}
+    <div class="card__actions">
       <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
       <button class="viewed-toggle viewed-toggle--sm" type="button">Mark as done</button>
     </div>

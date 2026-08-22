@@ -259,6 +259,18 @@ header {
   gap: calc(var(--space-unit) * 3);
 }
 
+/* The <li> IS the grid item, so it already gets the full column width and
+   (grid rows stretch by default) the full row height for free. But for
+   card-grid lists whose <li> just *wraps* a .card (tier-2 casebooks;
+   individual/MBB cards ARE the grid item directly, so this rule is a
+   no-op for them), the .card child won't fill that box on its own — give
+   it 100% of both explicitly rather than reaching for flex-direction
+   tricks, which only stretch one axis (cross) and starve the other. */
+.card-grid > li > .card {
+  width: 100%;
+  height: 100%;
+}
+
 /* Favorite Individual Cases: capped to ~3 visible rows (height computed in
    JS, since column count — and so row height — changes with viewport
    width), then scrolls internally instead of growing the page. */
@@ -305,7 +317,9 @@ header {
   font-size: 0.85rem;
 }
 
-.mbb-card__actions {
+/* Shared "Open Case" + "Mark as done" row — every card that links out to a
+   document uses this same two-button pattern for consistency. */
+.card__actions {
   display: flex;
   align-items: center;
   gap: calc(var(--space-unit) * 1.25);
@@ -367,17 +381,13 @@ header {
   gap: calc(var(--space-unit) * 1.25);
 }
 
-.stair-card > .viewed-toggle {
+.stair-card > .card__actions {
   align-self: center;
   flex: 0 0 auto;
 }
 
 .card__title {
   font-size: 1rem;
-}
-
-.card__title a {
-  text-decoration: none;
 }
 
 .card__meta {
@@ -537,10 +547,6 @@ dl.card__meta > div {
 
   .site-banner__nav a:hover {
     color: #fff;
-  }
-
-  .card__title a:hover {
-    color: var(--indigo);
   }
 
   .directory-list__item a:hover {
