@@ -79,7 +79,7 @@ function wireViewedToggle(cardEl, toggleEl, itemId, onToggle) {
 function applyViewedState(cardEl, toggleEl, isViewed) {
   cardEl.classList.toggle("is-viewed", isViewed);
   toggleEl.classList.toggle("is-viewed", isViewed);
-  toggleEl.textContent = isViewed ? "Done ✓" : "Mark as done";
+  toggleEl.textContent = isViewed ? "Hecho ✓" : "Marcar como hecho";
 }
 
 // Renders a "3/5 done" progress badge (with a proportional fill bar) into
@@ -90,7 +90,7 @@ function renderProgress(el, items) {
   const total = items.length;
   const pct = total ? Math.round((done / total) * 100) : 0;
   el.innerHTML = `
-    <span>${done}/${total} done</span>
+    <span>${done}/${total} hecho</span>
     <span class="progress__bar"><span class="progress__bar-fill" style="width:${pct}%"></span></span>
   `;
 }

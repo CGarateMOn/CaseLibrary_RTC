@@ -21,14 +21,14 @@ function renderCaseOfWeek() {
     }
     bar.hidden = false;
     nameEl.textContent = item.caseName;
-    metaEl.textContent = `Selected by ${item.selectedBy}`;
+    metaEl.textContent = `Seleccionado por ${item.selectedBy}`;
     openLink.href = item.url;
     wireViewedToggle(bar, toggle, item.id);
   });
 }
 
 /* ---------- Favorite Casebooks ---------- */
-const RANK_LABELS = { 1: "Top pick", 2: "2nd pick", 3: "3rd pick" };
+const RANK_LABELS = { 1: "Mejor opción", 2: "2ª opción", 3: "3ª opción" };
 
 // `university` can be null (independent compilations) or a name that isn't
 // in UNIVERSITY_COLORS yet — both fall back to the card's neutral default
@@ -39,7 +39,7 @@ function universityColorFor(item) {
 
 function universityMetaRow(item) {
   return item.university
-    ? `<div><dt>University</dt><dd>${item.university}</dd></div>`
+    ? `<div><dt>Universidad</dt><dd>${item.university}</dd></div>`
     : "";
 }
 
@@ -57,7 +57,7 @@ function buildStairCard(item, onToggle) {
   const color = universityColorFor(item);
   if (color) article.style.setProperty("--university-color", color);
   const warnBadge = item.notForBeginners
-    ? `<span class="badge badge--warn">Not for beginners</span>`
+    ? `<span class="badge badge--warn">No es para principiantes</span>`
     : "";
 
   article.innerHTML = `
@@ -70,14 +70,14 @@ function buildStairCard(item, onToggle) {
       </div>
       <dl class="card__meta">
         ${universityMetaRow(item)}
-        <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
-        <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
+        <div><dt>Actualizado</dt><dd>${item.yearUpdated}</dd></div>
+        <div><dt>Autor(es)</dt><dd>${item.authors.join(", ")}</dd></div>
       </dl>
       ${descriptionHtml(item)}
     </div>
     <div class="card__actions">
-      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
-      <button class="viewed-toggle" type="button">Mark as done</button>
+      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Abrir Caso</a>
+      <button class="viewed-toggle" type="button">Marcar como hecho</button>
     </div>
   `;
   const toggle = article.querySelector(".viewed-toggle");
@@ -91,7 +91,7 @@ function buildCasebookCard(item, onToggle) {
   const color = universityColorFor(item);
   if (color) article.style.setProperty("--university-color", color);
   const warnBadge = item.notForBeginners
-    ? `<span class="badge badge--warn">Not for beginners</span>`
+    ? `<span class="badge badge--warn">No es para principiantes</span>`
     : "";
 
   article.innerHTML = `
@@ -101,13 +101,13 @@ function buildCasebookCard(item, onToggle) {
     ${warnBadge}
     <dl class="card__meta">
       ${universityMetaRow(item)}
-      <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
-      <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
+      <div><dt>Actualizado</dt><dd>${item.yearUpdated}</dd></div>
+      <div><dt>Autor(es)</dt><dd>${item.authors.join(", ")}</dd></div>
     </dl>
     ${descriptionHtml(item)}
     <div class="card__actions">
-      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
-      <button class="viewed-toggle" type="button">Mark as done</button>
+      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Abrir Caso</a>
+      <button class="viewed-toggle" type="button">Marcar como hecho</button>
     </div>
   `;
   const toggle = article.querySelector(".viewed-toggle");
@@ -174,11 +174,11 @@ function buildIndividualCard(item, onToggle) {
     <div class="card-top">
       <h4 class="card__title">${item.caseName}</h4>
     </div>
-    <p class="card__meta">From: ${item.casebookTitle}</p>
-    <p class="card__meta">Author(s): ${item.authors.join(", ")}</p>
-    <p class="card__recommender">Recommended by <strong>${item.recommendedBy}</strong></p>
-    <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
-    <button class="viewed-toggle" type="button">Mark as done</button>
+    <p class="card__meta">De: ${item.casebookTitle}</p>
+    <p class="card__meta">Autor(es): ${item.authors.join(", ")}</p>
+    <p class="card__recommender">Recomendado por <strong>${item.recommendedBy}</strong></p>
+    <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Abrir Caso</a>
+    <button class="viewed-toggle" type="button">Marcar como hecho</button>
   `;
   const toggle = li.querySelector(".viewed-toggle");
   wireViewedToggle(li, toggle, item.id, onToggle);
@@ -257,8 +257,8 @@ function buildMbbCard(item, onToggle) {
     </div>
     ${descriptionHtml(item)}
     <div class="card__actions">
-      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Open Case</a>
-      <button class="viewed-toggle viewed-toggle--sm" type="button">Mark as done</button>
+      <a class="btn btn--secondary btn--sm" href="${item.url}" target="_blank" rel="noopener">Abrir Caso</a>
+      <button class="viewed-toggle viewed-toggle--sm" type="button">Marcar como hecho</button>
     </div>
   `;
   const toggle = article.querySelector(".viewed-toggle");
