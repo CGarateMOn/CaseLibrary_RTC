@@ -10,14 +10,6 @@ const MBB_LINKS = [
     "firmSlug": "mckinsey"
   },
   {
-    "id": "mckinsey-conservation-forever",
-    "firm": "McKinsey & Company",
-    "title": "Conservation Forever",
-    "url": "https://www.mckinsey.com/careers/interviewing/conservation-forever",
-    "description": null,
-    "firmSlug": "mckinsey"
-  },
-  {
     "id": "mckinsey-diconsa",
     "firm": "McKinsey & Company",
     "title": "Diconsa",
@@ -46,14 +38,6 @@ const MBB_LINKS = [
     "firm": "McKinsey & Company",
     "title": "National Education",
     "url": "https://www.mckinsey.com/careers/interviewing/national-education",
-    "description": null,
-    "firmSlug": "mckinsey"
-  },
-  {
-    "id": "mckinsey-shops-corporation",
-    "firm": "McKinsey & Company",
-    "title": "Shops Corporation",
-    "url": "https://www.mckinsey.com/careers/interviewing/shops-corporation",
     "description": null,
     "firmSlug": "mckinsey"
   },
