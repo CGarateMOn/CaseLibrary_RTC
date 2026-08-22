@@ -15,6 +15,11 @@ function renderCaseOfWeek() {
   if (!bar || !nameEl || !metaEl) return;
 
   getCaseOfWeek().then((item) => {
+    if (!item) {
+      bar.hidden = true;
+      return;
+    }
+    bar.hidden = false;
     nameEl.textContent = item.caseName;
     metaEl.textContent = `Selected by ${item.selectedBy}`;
     openLink.href = item.url;
@@ -25,10 +30,24 @@ function renderCaseOfWeek() {
 /* ---------- Favorite Casebooks ---------- */
 const RANK_LABELS = { 1: "Top pick", 2: "2nd pick", 3: "3rd pick" };
 
+// `university` can be null (independent compilations) or a name that isn't
+// in UNIVERSITY_COLORS yet — both fall back to the card's neutral default
+// border instead of breaking.
+function universityColorFor(item) {
+  return (item.university && UNIVERSITY_COLORS[item.university]) || null;
+}
+
+function universityMetaRow(item) {
+  return item.university
+    ? `<div><dt>University</dt><dd>${item.university}</dd></div>`
+    : "";
+}
+
 function buildStairCard(item, onToggle) {
   const article = document.createElement("article");
   article.className = "card stair-card";
-  article.style.setProperty("--university-color", item.universityColor);
+  const color = universityColorFor(item);
+  if (color) article.style.setProperty("--university-color", color);
   const warnBadge = item.notForBeginners
     ? `<span class="badge badge--warn">Not for beginners</span>`
     : "";
@@ -42,7 +61,7 @@ function buildStairCard(item, onToggle) {
         ${warnBadge}
       </div>
       <dl class="card__meta">
-        <div><dt>University</dt><dd>${item.university}</dd></div>
+        ${universityMetaRow(item)}
         <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
         <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
       </dl>
@@ -58,7 +77,8 @@ function buildStairCard(item, onToggle) {
 function buildCasebookCard(item, onToggle) {
   const article = document.createElement("article");
   article.className = "card casebook-card";
-  article.style.setProperty("--university-color", item.universityColor);
+  const color = universityColorFor(item);
+  if (color) article.style.setProperty("--university-color", color);
   const warnBadge = item.notForBeginners
     ? `<span class="badge badge--warn">Not for beginners</span>`
     : "";
@@ -69,7 +89,7 @@ function buildCasebookCard(item, onToggle) {
     </div>
     ${warnBadge}
     <dl class="card__meta">
-      <div><dt>University</dt><dd>${item.university}</dd></div>
+      ${universityMetaRow(item)}
       <div><dt>Updated</dt><dd>${item.yearUpdated}</dd></div>
       <div><dt>Author(s)</dt><dd>${item.authors.join(", ")}</dd></div>
     </dl>

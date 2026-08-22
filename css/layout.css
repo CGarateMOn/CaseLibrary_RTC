@@ -388,8 +388,24 @@ header {
 .card__meta dl,
 dl.card__meta {
   display: grid;
-  grid-template-columns: auto 1fr;
+  /* Equal fr split, not auto/1fr — `auto` tracks size off the field's
+     content (min/max-content), so one long value (a long university name)
+     still ends up dominating and starving the other column even with
+     min-width:0 on the items. A fixed even split can't be starved. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.2em 0.6em;
+}
+
+/* Classic grid-blowout fix: a grid item's default min-width is `auto`
+   (its content's intrinsic size), not 0 — so a long unbroken value (e.g.
+   "Wharton (University of Pennsylvania)") can still force its column wide
+   and starve the sibling column down to near nothing, which then breaks
+   *that* column's short text letter-by-letter under the global
+   overflow-wrap:anywhere. min-width:0 lets the item actually shrink and
+   wrap within whatever width the track ends up with. */
+.card__meta dl > div,
+dl.card__meta > div {
+  min-width: 0;
 }
 
 .card__meta dt {

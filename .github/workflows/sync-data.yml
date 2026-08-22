@@ -1,0 +1,36 @@
+name: Sync data from Google Sheets
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch, validate, and regenerate js/data/*.js
+        env:
+          RTC_SHEET_ENDPOINT: ${{ secrets.RTC_SHEET_ENDPOINT }}
+        run: node scripts/sync-data.mjs
+
+      - name: Commit if the data actually changed
+        run: |
+          git config user.name "rtc-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add js/data/casebooks.js js/data/individual-cases.js js/data/mbb-links.js js/data/case-of-week.js
+          if git diff --cached --quiet; then
+            echo "No data changes since last sync."
+          else
+            git commit -m "chore: sync data from Google Sheets"
+            git push
+          fi
