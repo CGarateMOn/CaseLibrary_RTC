@@ -77,6 +77,8 @@ Detalles del contrato:
 
 El workflow hace `git add` de esos 4 ficheros y solo commitea si el contenido cambió de verdad (por eso `generatedAt` nunca se escribe dentro de los ficheros — si lo hiciera, habría un commit cada hora aunque no hubiera cambios reales).
 
+**Heartbeat contra el auto-apagado de GitHub**: GitHub desactiva solo los workflows programados (`schedule`) si el repo pasa 60 días sin ninguna actividad de git. Como este workflow, a propósito, solo commitea cuando la hoja cambia de verdad, si el Sheet estuviera 30+ días sin cambios reales, el propio job fuerza un commit mínimo (un timestamp en `.github/.sync-heartbeat`) para mantener el repo "vivo" muy por debajo del límite de 60 días — sin ensuciar el historial de `js/data/*.js` con commits vacíos. Si alguna vez ves el badge de "This scheduled workflow has been disabled" en la pestaña Actions, se reactiva a mano ahí mismo.
+
 **No hay fetch desde el navegador en ningún momento.** El sitio sigue siendo 100% estático: los datos se congelan en cada sync y se sirven desde GitHub Pages como cualquier otro archivo del repo — no hay sondeo ni actualización en vivo en el cliente.
 
 ### Colores de universidad — matriz en código, nunca tocada por el sync

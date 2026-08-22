@@ -28,6 +28,21 @@ jobs:
           git config user.name "rtc-data-bot"
           git config user.email "actions@users.noreply.github.com"
           git add js/data/casebooks.js js/data/individual-cases.js js/data/mbb-links.js js/data/case-of-week.js
+
+          # GitHub auto-disables scheduled workflows after 60 days with no
+          # repo activity — and this workflow, by design, only commits when
+          # the sheet actually changed. If the sheet has been static for a
+          # while, force one trivial "heartbeat" commit well before that
+          # 60-day cliff, so the schedule never silently stops firing. It's
+          # a single tracked timestamp file, not app data — nobody needs
+          # to read its history, it exists purely to keep the repo "alive".
+          LAST_COMMIT_AGE_DAYS=$(( ( $(date -u +%s) - $(git log -1 --format=%ct) ) / 86400 ))
+          if git diff --cached --quiet && [ "$LAST_COMMIT_AGE_DAYS" -ge 30 ]; then
+            echo "No data changes, but last commit was $LAST_COMMIT_AGE_DAYS days ago — forcing a heartbeat commit."
+            date -u +"%Y-%m-%dT%H:%M:%SZ" > .github/.sync-heartbeat
+            git add .github/.sync-heartbeat
+          fi
+
           if git diff --cached --quiet; then
             echo "No data changes since last sync."
           else
