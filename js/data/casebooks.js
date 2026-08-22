@@ -32,7 +32,7 @@ const CASEBOOKS = [
   {
     "id": "11-real-cases-of-mckinsey-bain-and-bcg",
     "title": "11 real cases of McKinsey, Bain and BCG",
-    "university": null,
+    "university": "Private Corporation",
     "yearUpdated": 2020,
     "authors": [
       "By Peter K."
@@ -46,7 +46,7 @@ const CASEBOOKS = [
   {
     "id": "15-advanced-level-cases-inspired-by-real-mckinsey-interviews",
     "title": "15 advanced-level cases inspired by real McKinsey interviews",
-    "university": null,
+    "university": "Private Corporation",
     "yearUpdated": 2023,
     "authors": [
       "By Peter K."
