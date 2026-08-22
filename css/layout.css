@@ -1,3 +1,182 @@
+/* ---------- intro (first-visit welcome screen, index.html only) ----------
+   Same pattern as RTC Ofertas' #intro: full-screen indigo overlay, shown
+   once via localStorage, dismissed by the "Empezamos" button. The "RTC"
+   mark is a styled <span>, not an image/SVG — matches the sibling site's
+   .intro-mark wordmark exactly. */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: var(--indigo);
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+  padding-top: calc(24px + env(safe-area-inset-top));
+  padding-right: calc(24px + env(safe-area-inset-right));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  padding-left: calc(24px + env(safe-area-inset-left));
+}
+
+#intro.on {
+  display: flex;
+}
+
+#intro .inner {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.intro-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.intro-mark {
+  font: 800 20px var(--font-display);
+  letter-spacing: -.02em;
+  background: var(--paper);
+  color: var(--indigo);
+  border-radius: 8px;
+  padding: 4px 9px;
+}
+
+.intro-name {
+  font: 500 11px var(--font-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+
+#intro h1 {
+  font: 800 30px/1.15 var(--font-display);
+  letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+
+#intro p {
+  font-family: var(--font-body);
+  opacity: .78;
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+/* Numbered steps — same pattern as RTC Ofertas' onboarding: a circle +
+   bold headline + muted detail per step. Step 1 includes a real, isolated
+   demo of the "Marcar como hecho" button (same class as the live one) so
+   it's genuinely clickable, not just a screenshot. */
+.steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.steps li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.steps li > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.steps .num {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 14px var(--font-mono);
+}
+
+.steps b {
+  display: block;
+  font: 600 16px var(--font-body);
+  letter-spacing: -.005em;
+}
+
+.steps small {
+  display: block;
+  font: 400 13px var(--font-body);
+  opacity: .68;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.intro-demo-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.intro-demo-row small {
+  margin-top: 0;
+}
+
+/* Sized to the button it holds, not the full step width — just enough
+   padding to read as its own little "card", not a whole panel. */
+.steps .mock {
+  display: inline-flex;
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 6px;
+}
+
+/* The disclaimer step: same circle language as 1 and 2, just quieter —
+   it's a caveat, not an instruction. */
+.step-nota {
+  opacity: .72;
+}
+
+.step-nota .num {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.step-nota b {
+  font-size: 14px;
+}
+
+.step-nota small {
+  font-size: 12px;
+}
+
+.empezar {
+  display: block;
+  width: 100%;
+  background: var(--paper);
+  color: var(--indigo);
+  border: none;
+  border-radius: var(--r);
+  padding: 17px 20px;
+  font: 700 17px var(--font-display);
+  letter-spacing: -.01em;
+  text-align: center;
+}
+
+.empezar:hover {
+  filter: brightness(.97);
+}
+
+body.intro-open {
+  overflow: hidden;
+}
+
 /* ---------- header ---------- */
 header {
   background: var(--indigo);

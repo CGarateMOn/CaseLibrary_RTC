@@ -14,6 +14,49 @@
   <link rel="stylesheet" href="css/layout.css">
 </head>
 <body data-page="home">
+  <div id="intro">
+    <div class="inner">
+      <div class="intro-brand">
+        <span class="intro-mark">RTC</span>
+        <span class="intro-name">Road to Consulting</span>
+      </div>
+      <h1>Bienvenido a tu librería de casos</h1>
+      <p>
+        Aquí te proponemos los casos favoritos del equipo de RTC, seleccionados previamente
+        para ti.
+      </p>
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <div>
+            <b>Sigue tu progreso pulsando el botón de "Marcar como hecho"</b>
+            <div class="intro-demo-row">
+              <small>Pruébalo aquí mismo:</small>
+              <span class="mock">
+                <button type="button" class="viewed-toggle" id="intro-demo-toggle">Marcar como hecho</button>
+              </span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div>
+            <b>Accede a tus casos favoritos desde cualquier dispositivo</b>
+            <small>Teléfono, tableta u ordenador.</small>
+          </div>
+        </li>
+        <li class="step-nota">
+          <span class="num">3</span>
+          <div>
+            <b>Tus datos viven en este navegador</b>
+            <small>Cuidado: el progreso se guarda solo en este dispositivo. No se transfiere entre aparatos, y si usas una pestaña privada o borras tu historial, se perderá.</small>
+          </div>
+        </li>
+      </ol>
+      <button class="empezar" id="empezar" type="button">¡Empezamos!</button>
+    </div>
+  </div>
+
   <header>
     <div class="site-banner__inner wrap">
       <a href="index.html" class="brand">
@@ -102,5 +145,6 @@
   <script src="js/viewed-tracker.js"></script>
   <script src="js/render-home.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/intro.js"></script>
 </body>
 </html>
