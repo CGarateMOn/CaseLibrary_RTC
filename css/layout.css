@@ -450,10 +450,12 @@ header {
   height: 100%;
 }
 
-/* Favorite Individual Cases: capped to ~3 visible rows (height computed in
-   JS, since column count — and so row height — changes with viewport
-   width), then scrolls internally instead of growing the page. */
-.indiv-cases-scroll {
+/* Row-capped scroll boxes: Favorite Individual Cases (~3 rows) and each
+   Video References category (1 row desktop / 2 mobile) — height computed
+   in JS, since column count changes with viewport width, then this
+   scrolls internally instead of growing the page. */
+.indiv-cases-scroll,
+.video-group-scroll {
   overflow-y: auto;
   padding-right: 6px;
   margin-right: -6px;
@@ -731,4 +733,150 @@ dl.card__meta > div {
   .directory-list__item a:hover {
     color: var(--indigo);
   }
+
+  .video-thumb:hover .video-thumb__play {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video-card .card__title a:hover {
+    color: var(--indigo);
+  }
+
+  .chip:not([aria-pressed="true"]):hover {
+    border-color: var(--indigo);
+    color: var(--ink);
+  }
+}
+
+/* ---------- Video References (videos.html pilot) ----------
+   Same grouped-by-firm language as MBB Cases (color-coded left border +
+   section heading), plus a neutral "general" group for non-firm-specific
+   content — parallel classes (not a reuse of .mbb-firm-group) so this
+   stays independent of the already-shipped MBB markup. */
+.video-group {
+  margin-bottom: calc(var(--space-unit) * 4);
+}
+
+.video-group:last-child {
+  margin-bottom: 0;
+}
+
+.video-group__title {
+  color: var(--firm-color, var(--ink));
+}
+
+.video-group[data-firm="mckinsey"] { --firm-color: #0057B8; }
+.video-group[data-firm="bcg"] { --firm-color: #1C6B3E; }
+.video-group[data-firm="bain"] { --firm-color: #A6192E; }
+.video-group[data-firm="general"] { --firm-color: var(--indigo); }
+
+.video-group .card {
+  border-left: 4px solid var(--firm-color, var(--line));
+}
+
+/* Thumbnail-first card: the base .card padding is overridden to 0 so the
+   thumbnail can sit flush at the top, clipped to the card's own rounded
+   corners; the text content gets its own padded wrapper below it. */
+.video-card {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--firm-color, var(--indigo)) 0%, var(--ink) 150%);
+}
+
+.video-thumb__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: var(--shadow-card-hover);
+  transition: transform .15s ease;
+}
+
+.video-thumb__play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-41%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.video-thumb__duration {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(0, 0, 0, .75);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.video-card__body {
+  padding: calc(var(--space-unit) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 0.75);
+}
+
+.video-card .firm-badge {
+  margin-bottom: calc(var(--space-unit) * -0.25);
+}
+
+.video-card .card__meta {
+  font-size: 0.85rem;
+}
+
+.video-card .card__title a {
+  text-decoration: none;
+}
+
+/* Filter chips (Video References) — same pill pattern as RTC Ofertas'
+   filter bar, adapted to our tokens. */
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  margin-bottom: calc(var(--space-unit) * 3);
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--muted);
+  font: 500 14px var(--font-body);
+  white-space: nowrap;
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--indigo);
+  border-color: var(--indigo);
+  color: #fff;
 }
