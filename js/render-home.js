@@ -37,10 +37,12 @@ function universityColorFor(item) {
   return (item.university && UNIVERSITY_COLORS[item.university]) || null;
 }
 
+// Always render the Universidad row, even without one — "Entidad privada"
+// as a fallback keeps every card's meta block the same shape (3 fields),
+// so cards without a university don't end up visibly shorter than the
+// ones that have it once card heights get equalized.
 function universityMetaRow(item) {
-  return item.university
-    ? `<div><dt>Universidad</dt><dd>${item.university}</dd></div>`
-    : "";
+  return `<div><dt>Universidad</dt><dd>${item.university || "Entidad privada"}</dd></div>`;
 }
 
 // `description` can be null/empty (e.g. MBB rows with no write-up yet) —
@@ -129,6 +131,9 @@ function renderCasebooks() {
 
     const updateProgress = () => renderProgress(progressEl, casebooks);
 
+    // Tier 1 keeps its fixed rank order always — it's a deliberate
+    // hierarchy (best/2nd/3rd pick), not a "what's left" list, so it never
+    // reorders on mark-done.
     tier1.forEach((item) => {
       const li = document.createElement("li");
       li.dataset.rank = item.rank;
@@ -136,11 +141,18 @@ function renderCasebooks() {
       tier1List.appendChild(li);
     });
 
-    tier2.forEach((item) => {
-      const li = document.createElement("li");
-      li.appendChild(buildCasebookCard(item, updateProgress));
-      tier2List.appendChild(li);
-    });
+    // Tier 2 ("other titles we like") has no ranking to protect, so done
+    // items sink to the bottom like Individual Cases / MBB Cases.
+    renderSortableList(
+      tier2List,
+      tier2,
+      (item, onMarked) => {
+        const li = document.createElement("li");
+        li.appendChild(buildCasebookCard(item, onMarked));
+        return li;
+      },
+      { onToggle: updateProgress }
+    );
 
     updateProgress();
     equalizeHeights(tier1List.querySelectorAll(".stair-card"));
@@ -164,6 +176,65 @@ function equalizeHeights(elements) {
   items.forEach((el) => { el.style.height = "auto"; });
   const tallest = Math.max(...items.map((el) => el.getBoundingClientRect().height));
   items.forEach((el) => { el.style.height = `${tallest}px`; });
+}
+
+// How long to wait, after a click, before a "sink to bottom" list actually
+// reorders — long enough that the button's own "pulse" animation (.35s, in
+// base.css) gets to play in full before its card is torn down and rebuilt
+// at the new spot.
+const REORDER_DELAY = 380;
+const REORDER_ANIM_MS = 220;
+
+// Renders `items` into `listEl`, sorted with done items sunk to the bottom,
+// animating the move with a short slide instead of an instant snap.
+// `buildCard(item, onMarked)` must build the movable element itself (the
+// direct child of `listEl` — an <li> if listEl wraps cards in <li>s, the
+// card itself otherwise) and wire its toggle to call `onMarked` once state
+// is persisted. `onToggle` (optional) runs immediately on every click, e.g.
+// to update a progress pill; `afterRebuild` (optional) runs after every
+// rebuild, e.g. to recompute a row-capped scroll height.
+function renderSortableList(listEl, items, buildCard, { onToggle, afterRebuild } = {}) {
+  let reorderTimer;
+
+  function draw() {
+    const firstRects = {};
+    Array.from(listEl.children).forEach((el) => {
+      firstRects[el.dataset.sortId] = el.getBoundingClientRect();
+    });
+
+    listEl.innerHTML = "";
+    const ordered = [...items].sort(
+      (a, b) => Number(ViewedTracker.isViewed(a.id)) - Number(ViewedTracker.isViewed(b.id))
+    );
+    ordered.forEach((item) => {
+      const el = buildCard(item, () => {
+        if (onToggle) onToggle();
+        clearTimeout(reorderTimer);
+        reorderTimer = setTimeout(draw, REORDER_DELAY);
+      });
+      el.dataset.sortId = item.id;
+      listEl.appendChild(el);
+    });
+
+    if (afterRebuild) afterRebuild();
+
+    Array.from(listEl.children).forEach((el) => {
+      const first = firstRects[el.dataset.sortId];
+      if (!first) return;
+      const last = el.getBoundingClientRect();
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if (!dx && !dy) return;
+      el.style.transition = "none";
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+      requestAnimationFrame(() => {
+        el.style.transition = `transform ${REORDER_ANIM_MS}ms ease`;
+        el.style.transform = "";
+      });
+    });
+  }
+
+  draw();
 }
 
 /* ---------- Favorite Individual Cases ---------- */
@@ -218,24 +289,11 @@ function renderIndividualCases() {
   if (!list || !scrollEl) return;
 
   getIndividualCases().then((cases) => {
-    function draw() {
-      list.innerHTML = "";
-      // Stable sort: not-done first (in original order), done cases sink
-      // to the bottom (in original order) as they get marked complete.
-      const ordered = [...cases].sort(
-        (a, b) => Number(ViewedTracker.isViewed(a.id)) - Number(ViewedTracker.isViewed(b.id))
-      );
-      ordered.forEach((item) => {
-        list.appendChild(buildIndividualCard(item, () => {
-          renderProgress(progressEl, cases);
-          draw();
-        }));
-      });
-      capToRows(scrollEl, list, 3);
-    }
-
     renderProgress(progressEl, cases);
-    draw();
+    renderSortableList(list, cases, buildIndividualCard, {
+      onToggle: () => renderProgress(progressEl, cases),
+      afterRebuild: () => capToRows(scrollEl, list, 3)
+    });
 
     let resizeTimer;
     window.addEventListener("resize", () => {
@@ -292,13 +350,11 @@ function renderMbbGroups() {
 
       const grid = group.querySelector(`#mbb-grid-${slug}`);
       const progressEl = group.querySelector(`#${progressId}`);
-      const updateProgress = () => renderProgress(progressEl, firmLinks);
 
-      firmLinks.forEach((item) => {
-        grid.appendChild(buildMbbCard(item, updateProgress));
+      renderProgress(progressEl, firmLinks);
+      renderSortableList(grid, firmLinks, buildMbbCard, {
+        onToggle: () => renderProgress(progressEl, firmLinks)
       });
-
-      updateProgress();
     });
   });
 }

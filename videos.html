@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RTC Librería de Casos · Librería Completa</title>
+  <title>RTC Librería de Casos · Vídeos</title>
   <meta name="theme-color" content="#26346B">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
 </head>
-<body data-page="library">
+<body data-page="videos">
   <header>
     <div class="site-banner__inner wrap">
       <a href="index.html" class="brand">
@@ -22,8 +22,8 @@
       </a>
       <nav class="site-banner__nav" aria-label="Principal">
         <a href="index.html">Inicio</a>
-        <a href="library.html" aria-current="page">Librería Completa</a>
-        <a href="videos.html">Vídeos</a>
+        <a href="library.html">Librería Completa</a>
+        <a href="videos.html" aria-current="page">Vídeos</a>
       </nav>
     </div>
   </header>
@@ -31,19 +31,19 @@
   <main>
     <section class="section">
       <div class="wrap wrap--narrow">
-        <h1>Librería de Casos Completa</h1>
+        <h1>Nuestros Vídeos Favoritos</h1>
         <p class="section__intro">
-          Estas son las carpetas de RTC con todos los casebooks que tenemos, agrupadas por
-          universidad. A diferencia de la página principal, aquí no hay ninguna preselección.
-          Si eres nuevo, te recomendamos empezar por la página principal; si ya has consumido
-          todo lo que ofrece, siéntete libre de explorar el resto de nuestro catálogo.
+          Una selección para aprender cómo es una entrevista de caso: vídeos con casos
+          estilo McKinsey, BCG y Bain resueltos paso a paso, además de contenido general
+          sobre cómo es ser consultor.
         </p>
-        <a class="btn btn--ghost" href="index.html">← Volver a la página principal</a>
       </div>
     </section>
-    <section class="section">
+
+    <section class="section section--panel">
       <div class="wrap">
-        <ul class="directory-list" id="university-directory"></ul>
+        <div class="chips" id="video-filters" role="group" aria-label="Filtrar por tipo"></div>
+        <div id="video-groups"></div>
       </div>
     </section>
   </main>
@@ -52,8 +52,9 @@
     <div class="wrap">© Road To Consulting, a Talentum brand.<br>All rights reserved.<br>Madrid, Comunidad de Madrid. España</div>
   </footer>
 
-  <script src="js/data/universities.js"></script>
-  <script src="js/render-library.js"></script>
+  <script src="js/data/videos.js"></script>
+  <script src="js/viewed-tracker.js"></script>
+  <script src="js/render-videos.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

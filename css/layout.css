@@ -304,6 +304,99 @@ header {
   gap: 6px;
 }
 
+/* Orientation bar — a quick "where to go" pointer to the three ways to use
+   the site: preselected content on this page, Videos, and the full
+   library. Sits right under the Case of the Week bar, above the sections
+   it points at. Stacked by default; 3 columns from the desktop breakpoint
+   up, matching the site's single min-width:1024px convention. */
+.page-guide {
+  border-bottom: 1px solid var(--line);
+}
+
+.page-guide__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 2);
+  padding-block: calc(var(--space-unit) * 2.5);
+}
+
+.page-guide__list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.page-guide__num {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 13px var(--font-mono);
+}
+
+.page-guide__list b {
+  display: block;
+  font: 600 14px var(--font-body);
+  color: var(--ink);
+}
+
+.page-guide__list p {
+  font: 400 13px var(--font-body);
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.page-guide__list a {
+  color: var(--indigo);
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .page-guide__list {
+    flex-direction: row;
+    gap: calc(var(--space-unit) * 3);
+  }
+
+  .page-guide__list li {
+    flex: 1;
+  }
+}
+
+/* On phones this bar sits above the fold on first load — shrink it so it
+   doesn't eat most of the screen before the actual content shows. */
+@media (max-width: 1023.98px) {
+  .page-guide__list {
+    gap: calc(var(--space-unit) * 1);
+    padding-block: calc(var(--space-unit) * 1.5);
+  }
+
+  .page-guide__list li {
+    gap: 8px;
+  }
+
+  .page-guide__num {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .page-guide__list b {
+    font-size: 12.5px;
+  }
+
+  .page-guide__list p {
+    font-size: 11.5px;
+    margin-top: 1px;
+  }
+}
+
 /* Sections */
 .section {
   padding-block: calc(var(--space-unit) * 5);
@@ -450,10 +543,12 @@ header {
   height: 100%;
 }
 
-/* Favorite Individual Cases: capped to ~3 visible rows (height computed in
-   JS, since column count — and so row height — changes with viewport
-   width), then scrolls internally instead of growing the page. */
-.indiv-cases-scroll {
+/* Row-capped scroll boxes: Favorite Individual Cases (~3 rows) and each
+   Video References category (1 row desktop / 2 mobile) — height computed
+   in JS, since column count changes with viewport width, then this
+   scrolls internally instead of growing the page. */
+.indiv-cases-scroll,
+.video-group-scroll {
   overflow-y: auto;
   padding-right: 6px;
   margin-right: -6px;
@@ -519,7 +614,10 @@ header {
 /* Tier-1 "staircase" cards — all three the same size (matching the
    narrowest, 3rd-place card); the staircase comes from alignment shifting
    left → center → right, so the empty space top-right (1st card) mirrors
-   the empty space bottom-left (3rd card) exactly, for symmetry. */
+   the empty space bottom-left (3rd card) exactly, for symmetry. There's not
+   enough width for that offset to read as intentional on mobile — it just
+   looks cramped/off-center — so mobile gets plain full-width cards, and the
+   staircase only kicks in from the desktop breakpoint up. */
 .rank-stack {
   display: flex;
   flex-direction: column;
@@ -527,15 +625,21 @@ header {
 }
 
 .rank-stack > li {
-  width: 88%;
+  width: 100%;
 }
 
-.rank-stack > li[data-rank="2"] {
-  margin-inline: auto;
-}
+@media (min-width: 1024px) {
+  .rank-stack > li {
+    width: 88%;
+  }
 
-.rank-stack > li[data-rank="3"] {
-  margin-left: auto;
+  .rank-stack > li[data-rank="2"] {
+    margin-inline: auto;
+  }
+
+  .rank-stack > li[data-rank="3"] {
+    margin-left: auto;
+  }
 }
 
 .stair-card {
@@ -583,6 +687,16 @@ dl.card__meta {
      min-width:0 on the items. A fixed even split can't be starved. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.2em 0.6em;
+}
+
+/* Universidad/Actualizado/Autor(es) is always exactly 3 fields now (see
+   universityMetaRow) — from the desktop breakpoint up there's room to lay
+   all three out on one line instead of wrapping the 3rd to its own row. */
+@media (min-width: 1024px) {
+  .card__meta dl,
+  dl.card__meta {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 /* Classic grid-blowout fix: a grid item's default min-width is `auto`
@@ -731,4 +845,158 @@ dl.card__meta > div {
   .directory-list__item a:hover {
     color: var(--indigo);
   }
+
+  .video-thumb:hover .video-thumb__play {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video-card .card__title a:hover {
+    color: var(--indigo);
+  }
+
+  .chip:not([aria-pressed="true"]):hover {
+    border-color: var(--indigo);
+    color: var(--ink);
+  }
+}
+
+/* ---------- Video References (videos.html pilot) ----------
+   Same grouped-by-firm language as MBB Cases (color-coded left border +
+   section heading), plus a neutral "general" group for non-firm-specific
+   content — parallel classes (not a reuse of .mbb-firm-group) so this
+   stays independent of the already-shipped MBB markup. */
+.video-group {
+  margin-bottom: calc(var(--space-unit) * 4);
+}
+
+.video-group:last-child {
+  margin-bottom: 0;
+}
+
+.video-group__title {
+  color: var(--firm-color, var(--ink));
+}
+
+.video-group[data-firm="mckinsey"] { --firm-color: #0057B8; }
+.video-group[data-firm="bcg"] { --firm-color: #1C6B3E; }
+.video-group[data-firm="bain"] { --firm-color: #A6192E; }
+.video-group[data-firm="general"] { --firm-color: var(--indigo); }
+
+.video-group .card {
+  border-left: 4px solid var(--firm-color, var(--line));
+}
+
+/* Thumbnail-first card: the base .card padding is overridden to 0 so the
+   thumbnail can sit flush at the top, clipped to the card's own rounded
+   corners; the text content gets its own padded wrapper below it. */
+.video-card {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--firm-color, var(--indigo)) 0%, var(--ink) 150%);
+}
+
+.video-thumb__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumb__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: var(--shadow-card-hover);
+  transition: transform .15s ease;
+}
+
+.video-thumb__play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-41%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.video-thumb__duration {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(0, 0, 0, .75);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.video-card__body {
+  padding: calc(var(--space-unit) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 0.75);
+}
+
+.video-card .firm-badge {
+  margin-bottom: calc(var(--space-unit) * -0.25);
+}
+
+.video-card .card__meta {
+  font-size: 0.85rem;
+}
+
+.video-card .card__title a {
+  text-decoration: none;
+}
+
+/* Filter chips (Video References) — same pill pattern as RTC Ofertas'
+   filter bar, adapted to our tokens. */
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  margin-bottom: calc(var(--space-unit) * 3);
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--muted);
+  font: 500 14px var(--font-body);
+  white-space: nowrap;
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--indigo);
+  border-color: var(--indigo);
+  color: #fff;
 }

@@ -4,5 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initHomePage();
   } else if (page === "library") {
     initLibraryPage();
+  } else if (page === "videos") {
+    initVideosPage();
   }
 });
