@@ -22,40 +22,44 @@ const INDIVIDUAL_CASES = [
     "url": "https://drive.google.com/file/d/1i_8zBTh4IsOoRb87cw-7Z141VuMfObsA/view?usp=share_link"
   },
   {
-    "id": "fintech-startup",
+    "id": "rubber-plant",
     "caseName": "Rubber Plant",
     "casebookTitle": "Wharton Consulting Club Casebook 2024-2025",
     "authors": [
       "Wharton Consulting Club"
     ],
     "recommendedBy": "Santiago",
-    "url": null
+    "url": "https://drive.google.com/file/d/1EFWWXJVtc5Lv0m5Sh9wnXPR1oaHB4KT-/view?usp=share_link"
   },
   {
-    "id": "neuro-now",
+    "id": "lux-rides",
     "caseName": "Lux Rides",
     "casebookTitle": "Wharton Consulting Club Casebook 2024-2025",
     "authors": [
       "Wharton Consulting Club"
     ],
     "recommendedBy": "Santiago",
-    "url": null
+    "url": "Lux Rides.pdf"
   },
   {
-    "id": "fintech-startup-2",
+    "id": "fintech-startup",
     "caseName": "Fintech Startup",
-    "casebookTitle": null,
-    "authors": [],
-    "recommendedBy": null,
-    "url": null
+    "casebookTitle": "Columbia Management Consulting Association Casebook 2021",
+    "authors": [
+      "Columbia Management Consulting Association"
+    ],
+    "recommendedBy": "Santiago",
+    "url": "https://drive.google.com/file/d/1eCysuD1jv-bJ9tybiIYAh1cK8ZkLB_iK/view?usp=share_link"
   },
   {
-    "id": "neuronow",
+    "id": "neuro-now",
     "caseName": "Neuro Now",
-    "casebookTitle": null,
-    "authors": [],
-    "recommendedBy": null,
-    "url": null
+    "casebookTitle": "Columbia Management Consulting Association Casebook 2021",
+    "authors": [
+      "Columbia Management Consulting Association"
+    ],
+    "recommendedBy": "Santiago",
+    "url": "https://drive.google.com/file/d/1Fux-rPqCsQ-bLpAIV3Gd7eGG6X4mpPAZ/view?usp=share_link"
   }
 ];
 
