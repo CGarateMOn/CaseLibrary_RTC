@@ -37,10 +37,12 @@ function universityColorFor(item) {
   return (item.university && UNIVERSITY_COLORS[item.university]) || null;
 }
 
+// Always render the Universidad row, even without one — "Entidad privada"
+// as a fallback keeps every card's meta block the same shape (3 fields),
+// so cards without a university don't end up visibly shorter than the
+// ones that have it once card heights get equalized.
 function universityMetaRow(item) {
-  return item.university
-    ? `<div><dt>Universidad</dt><dd>${item.university}</dd></div>`
-    : "";
+  return `<div><dt>Universidad</dt><dd>${item.university || "Entidad privada"}</dd></div>`;
 }
 
 // `description` can be null/empty (e.g. MBB rows with no write-up yet) —
