@@ -790,6 +790,14 @@ dl.card__meta > div {
   background: linear-gradient(135deg, var(--firm-color, var(--indigo)) 0%, var(--ink) 150%);
 }
 
+.video-thumb__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .video-thumb__play {
   position: absolute;
   top: 50%;
