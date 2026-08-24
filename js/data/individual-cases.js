@@ -20,6 +20,42 @@ const INDIVIDUAL_CASES = [
     ],
     "recommendedBy": "Carlos",
     "url": "https://drive.google.com/file/d/1i_8zBTh4IsOoRb87cw-7Z141VuMfObsA/view?usp=share_link"
+  },
+  {
+    "id": "fintech-startup",
+    "caseName": "Rubber Plant",
+    "casebookTitle": "Wharton Consulting Club Casebook 2024-2025",
+    "authors": [
+      "Wharton Consulting Club"
+    ],
+    "recommendedBy": "Santiago",
+    "url": null
+  },
+  {
+    "id": "neuro-now",
+    "caseName": "Lux Rides",
+    "casebookTitle": "Wharton Consulting Club Casebook 2024-2025",
+    "authors": [
+      "Wharton Consulting Club"
+    ],
+    "recommendedBy": "Santiago",
+    "url": null
+  },
+  {
+    "id": "fintech-startup-2",
+    "caseName": "Fintech Startup",
+    "casebookTitle": null,
+    "authors": [],
+    "recommendedBy": null,
+    "url": null
+  },
+  {
+    "id": "neuronow",
+    "caseName": "Neuro Now",
+    "casebookTitle": null,
+    "authors": [],
+    "recommendedBy": null,
+    "url": null
   }
 ];
 
