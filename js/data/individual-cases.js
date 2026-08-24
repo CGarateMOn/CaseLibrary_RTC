@@ -39,7 +39,7 @@ const INDIVIDUAL_CASES = [
       "Wharton Consulting Club"
     ],
     "recommendedBy": "Santiago",
-    "url": "Lux Rides.pdf"
+    "url": "https://drive.google.com/file/d/1oSTuF1TQWcHFVFffcS8decNhReptku0u/view?usp=share_link"
   },
   {
     "id": "fintech-startup",
