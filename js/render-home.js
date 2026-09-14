@@ -1,27 +1,29 @@
 function initHomePage() {
-  renderCaseOfWeek();
+  renderSpotlight();
   renderCasebooks();
   renderIndividualCases();
   renderMbbGroups();
 }
 
-/* ---------- Case of the Week (top notification bar) ---------- */
-function renderCaseOfWeek() {
-  const bar = document.getElementById("cow-bar");
-  const nameEl = document.getElementById("cow-name");
-  const metaEl = document.getElementById("cow-meta");
-  const openLink = document.getElementById("cow-open");
-  const toggle = document.getElementById("cow-fav");
+/* ---------- Spotlight (top notification bar for one featured resource) ---
+   Static pick, not a rotation — data comes from js/data/spotlight.js, a
+   hand-maintained file (like videos.js), not the Sheets sync. */
+function renderSpotlight() {
+  const bar = document.getElementById("spotlight-bar");
+  const nameEl = document.getElementById("spotlight-name");
+  const metaEl = document.getElementById("spotlight-meta");
+  const openLink = document.getElementById("spotlight-open");
+  const toggle = document.getElementById("spotlight-fav");
   if (!bar || !nameEl || !metaEl) return;
 
-  getCaseOfWeek().then((item) => {
+  getSpotlight().then((item) => {
     if (!item) {
       bar.hidden = true;
       return;
     }
     bar.hidden = false;
-    nameEl.textContent = item.caseName;
-    metaEl.textContent = `Seleccionado por ${item.selectedBy}`;
+    nameEl.textContent = item.name;
+    metaEl.innerHTML = `Recomendado por <strong>${item.recommendedBy}</strong>`;
     openLink.href = item.url;
     wireViewedToggle(bar, toggle, item.id);
   });
